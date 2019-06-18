@@ -1,0 +1,29 @@
+/* Montserrat */
+@font-face {
+  font-family: Montserrat;
+  font-weight: 900;
+  font-style: normal;
+  src: url("./fonts/Montserrat-ExtraBold.ttf");
+}
+
+/* Open Sans */
+@font-face {
+  font-family: "Open Sans";
+  font-weight: 400;
+  font-style: normal;
+  src: url("./fonts/OpenSans-Regular.ttf");
+}
+@font-face {
+  font-family: "Open Sans";
+  font-weight: 700;
+  font-style: normal;
+  src: url("./fonts/OpenSans-Bold.ttf");
+}
+
+/* Font Awesome */
+@font-face {
+  font-family: "Font Awesome Regular";
+  font-weight: 900;
+  font-style: normal;
+  src: url("./fonts/fontawesome-regular.ttf");
+}
