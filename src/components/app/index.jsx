@@ -6,6 +6,10 @@ import Orders from "../orders";
 import Customers from "../customers";
 import "./App.sass";
 
+/**
+ * The main component.
+ * Used for routing between multiple "pages" of application
+ */
 const App = () => (
   <BrowserRouter>
     <div className="app">
