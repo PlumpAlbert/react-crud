@@ -18,12 +18,14 @@
     color: inherit
     cursor: pointer
     text-decoration: none
-    border-bottom: 2px solid $primary-dark
+    border-bottom: 2px solid $dark
+
+    &.active
+      //background: $primary-dark
+      border-color: $primary-light
+      color: $light
 
     &:hover
       transition: all 100ms ease-in
-      background: $dark
-
-    &.active
-      background: $primary-dark
+      background: $primary-light
       color: $dark
