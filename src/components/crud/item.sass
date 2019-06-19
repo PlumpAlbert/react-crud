@@ -7,8 +7,9 @@
   align-items: stretch
   justify-content: flex-start
   min-width: 350px
-  max-width: 100%
-  margin: 2px 5px
+  width: 80%
+  max-width: 800px
+  margin: 0 5px
   font-family: inherit
 
   .item-header
@@ -19,10 +20,10 @@
     height: 2.4rem
     background: $light
     color: $dark
-    border-radius: 0.4rem
-
+    transition: background 150ms ease-out
     &.active
       z-index: 9999
+      background: $primary-light
       border-bottom: 2px solid $dark
 
     .header-title
@@ -55,7 +56,7 @@
     &.active
       overflow: visible
       height: auto
-      margin: -0.4rem 0 0
+      margin: -0.4rem 0 4px
       max-width: 100%
       padding: 0.9rem 1rem 0.5rem
       border-radius: 0 0 0.4rem 0.4rem

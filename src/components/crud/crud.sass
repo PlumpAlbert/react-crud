@@ -3,6 +3,7 @@
 .crud
   display: flex
   flex-direction: column
+  align-items: stretch
   margin: 1rem
 
   .page-title
@@ -12,7 +13,15 @@
 
   .items-wrapper
     display: flex
-    align-items: flex-start
-    flex-wrap: wrap
-    justify-content: center
-    margin: -5px
+    flex-direction: column
+    align-items: center
+    .item:first-child
+      .item-header
+        border-radius: 0.4rem 0.4rem 0 0
+    .item:last-child
+      .item-header
+        border: none
+        border-radius: 0 0 0.4rem 0.4rem
+    .item
+      .item-header
+        border-bottom: 2px solid $dark
