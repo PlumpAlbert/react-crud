@@ -1,5 +1,5 @@
-import * as React from 'react';
-import './home.sass';
+import * as React from "react";
+import "./home.sass";
 
 /**
  * The Home component.
@@ -15,7 +15,7 @@ const Home = () => (
         <p className="product-description">
           It doesn't matter if you're a vegan or paleo or omnivore. Maybe you
           like kale or pizza or mochi, or maybe you value local. That's cool. No
-          matter what you're into,{' '}
+          matter what you're into,{" "}
           <span className="product-name">Green Store</span> is the place to find
           the tastiest, best version of it. Whatever it is.
         </p>
@@ -28,7 +28,7 @@ const Home = () => (
       <button className="btn">GO SHOPPING!</button>
     </main>
     <footer>
-      All rights reserved. Copyrighted by Green Store<sup>&trade;</sup>
+      All rights reserved. Copyrighted by Fusion Soft<sup>&copy;</sup>
     </footer>
   </div>
 );
