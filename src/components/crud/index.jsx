@@ -18,6 +18,36 @@ class Crud extends React.PureComponent {
     };
   }
 
+  editItem = (prevItem, newItem) => {};
+
+  /**
+   * Removes item from the array
+   *
+   * @memberOf Crud
+   * @param item - an item that needs to be removed
+   */
+  removeItem = item => {
+    const { items } = this.props;
+    // Find index of item to remove
+    let index = items.findIndex(elem => elem === item);
+    if (index < 0)
+      return console.error("removeItem: didn't found item in the array");
+    let newItems;
+    switch (index) {
+      case 0: // Removes first item
+        newItems = [...items.slice(1)];
+        break;
+      case items.length - 1: // Removes last item
+        newItems = [...items.slice(0, items.length - 1)];
+        break;
+      default:
+        // Removes item at specific position
+        newItems = [...items.slice(0, index), ...items.slice(index + 1)];
+        break;
+    }
+    this.props.updateItems(newItems);
+  };
+
   /**
    * Method for rendering items.
    *
@@ -32,11 +62,9 @@ class Crud extends React.PureComponent {
       .slice(offset, count)
       .map((item, i) => (
         <Item
-          data={{ ...item, id: i }}
-          editItem={canEdit ? i => console.log("Update item #", i) : undefined}
-          removeItem={
-            canDelete ? i => console.log("Remove item #", i) : undefined
-          }
+          data={item}
+          editItem={canEdit ? newItem => this.editItem(item, newItem) : null}
+          removeItem={canDelete ? () => this.removeItem(item) : null}
           key={`crud-item_${i}`}
         />
       ));
@@ -75,7 +103,9 @@ Crud.propTypes = {
   /** Defines whether component can edit items */
   canEdit: PropTypes.bool,
   /** Specifies the number of items to display at the same time */
-  displayCount: PropTypes.number
+  displayCount: PropTypes.number,
+  /** Function to modify items array */
+  updateItems: PropTypes.func
 };
 
 Crud.defaultProps = {

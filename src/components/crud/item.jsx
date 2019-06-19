@@ -9,12 +9,15 @@ class Item extends React.PureComponent {
   constructor(props) {
     super(props);
     this.state = {
-      ...props.data,
       /** Mode of current item (view of edit) */
       mode: "view",
       /** Show the content of the item */
       showContent: false
     };
+  }
+
+  static getDerivedStateFromProps(props, state) {
+    return { ...state, ...props.data };
   }
 
   /**
@@ -55,16 +58,29 @@ class Item extends React.PureComponent {
               className="btn"
               onClick={e => {
                 e.stopPropagation();
-                removeItem(this.state.id);
+                removeItem();
               }}
             >
-              <i class="fa delete" />
+              <i className="fa delete" />
             </button>
           ) : null}
         </>
       );
     }
-    return <button className="btn save">Save</button>;
+    return (
+      <button
+        className="btn save"
+        onClick={e => {
+          e.stopPropagation();
+          this.props.editItem({
+            title: this.state.title,
+            info: this.state.info
+          });
+        }}
+      >
+        Save
+      </button>
+    );
   };
 
   render = () => {
@@ -84,7 +100,11 @@ class Item extends React.PureComponent {
           <div className="controls">{this.renderControls(mode)}</div>
         </div>
         {mode === "edit" ? (
-          <textarea className="item-content active">{info}</textarea>
+          <textarea
+            className="item-content active"
+            onChange={e => this.setState({ info: e.target.value })}
+            value={info}
+          />
         ) : (
           <p className={`item-content ${showContent ? "active" : ""}`}>
             {info}
@@ -97,8 +117,6 @@ class Item extends React.PureComponent {
 
 Item.propTypes = {
   data: PropTypes.shape({
-    /** Index of item in array */
-    id: PropTypes.number.isRequired,
     /** The title of item */
     title: PropTypes.string.isRequired,
     /** The additional information about item */
