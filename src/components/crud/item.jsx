@@ -25,7 +25,7 @@ class Item extends React.PureComponent {
    */
   changeMode = mode =>
     mode === "view"
-      ? this.setState({ mode: "edit" })
+      ? this.setState({ mode: "edit", showContent: true })
       : this.setState({ mode: "view" });
 
   /**
@@ -40,12 +40,24 @@ class Item extends React.PureComponent {
       return (
         <>
           {editItem ? (
-            <button className="btn" onClick={() => this.changeMode(mode)}>
+            <button
+              className="btn"
+              onClick={e => {
+                e.stopPropagation();
+                this.changeMode(mode);
+              }}
+            >
               <i className="fa edit" />
             </button>
           ) : null}
           {removeItem ? (
-            <button className="btn" onClick={() => removeItem(this.state.id)}>
+            <button
+              className="btn"
+              onClick={e => {
+                e.stopPropagation();
+                removeItem(this.state.id);
+              }}
+            >
               <i class="fa delete" />
             </button>
           ) : null}
@@ -59,11 +71,25 @@ class Item extends React.PureComponent {
     const { title, info, mode, showContent } = this.state;
     return (
       <div className="item">
-        <div className="item-header">
+        <div
+          className={`item-header ${showContent ? "active" : ""}`}
+          onClick={() =>
+            this.setState(state => ({
+              ...state,
+              showContent: !state.showContent
+            }))
+          }
+        >
           <span className="header-title">{title}</span>
           <div className="controls">{this.renderControls(mode)}</div>
         </div>
-        {showContent ? <p className="item-content">{info}</p> : null}
+        {mode === "edit" ? (
+          <textarea className="item-content active">{info}</textarea>
+        ) : (
+          <p className={`item-content ${showContent ? "active" : ""}`}>
+            {info}
+          </p>
+        )}
       </div>
     );
   };
