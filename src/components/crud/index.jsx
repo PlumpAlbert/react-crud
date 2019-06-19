@@ -48,7 +48,9 @@ class Crud extends React.PureComponent {
     return (
       <div className="crud">
         <h3 className="page-title">{title}</h3>
-        {this.renderItems(offset, displayCount)}
+        <div className="items-wrapper">
+          {this.renderItems(offset, displayCount)}
+        </div>
       </div>
     );
   };
