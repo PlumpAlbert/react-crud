@@ -3,7 +3,7 @@ import { BrowserRouter, Switch, Route } from "react-router-dom";
 import Menu from "../menu";
 import Home from "../home";
 import CRUD from "../crud";
-// import Orders from "../orders";
+import orders from "./orders";
 // import Customers from "../customers";
 import "./app.sass";
 
@@ -19,7 +19,14 @@ const App = () => (
         <Route exact path="/" component={Home} />
         <Route
           path="/orders"
-          render={() => <CRUD title="Orders" items={[]} />}
+          render={() => (
+            <CRUD
+              title="Orders"
+              items={orders}
+              canEdit={true}
+              canDelete={true}
+            />
+          )}
         />
         <Route
           path="/customers"
