@@ -76,7 +76,7 @@ class Item extends React.PureComponent {
           onClick={() =>
             this.setState(state => ({
               ...state,
-              showContent: !state.showContent
+              showContent: mode !== "edit" ? !state.showContent : true
             }))
           }
         >
