@@ -26,9 +26,20 @@ class Crud extends React.PureComponent {
    * @param count - the number of items to render
    */
   renderItems = (offset, count) => {
-    return this.props.items
+    console.log(`Rendering items (${offset},${offset + count})`);
+    const { items, canEdit, canDelete } = this.props;
+    return items
       .slice(offset, count)
-      .map((item, i) => <Item data={item} key={`crud-item_${i}`} />);
+      .map((item, i) => (
+        <Item
+          data={{ ...item, id: i }}
+          editItem={canEdit ? i => console.log("Update item #", i) : undefined}
+          removeItem={
+            canDelete ? i => console.log("Remove item #", i) : undefined
+          }
+          key={`crud-item_${i}`}
+        />
+      ));
   };
 
   render = () => {
