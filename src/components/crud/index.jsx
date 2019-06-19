@@ -64,3 +64,9 @@ Crud.propTypes = {
   /** Specifies the number of items to display at the same time */
   displayCount: PropTypes.number
 };
+
+Crud.defaultProps = {
+  displayCount: 10
+};
+
+export default Crud;
