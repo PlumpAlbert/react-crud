@@ -120,7 +120,6 @@ class Item extends React.PureComponent {
           ) : (
             <span
               className="header-title"
-              onClick={e => e.stopPropagation()}
               onDoubleClick={e => {
                 e.stopPropagation();
                 this.setState({ editHeader: true });
