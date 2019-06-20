@@ -19,6 +19,16 @@ class Crud extends React.PureComponent {
   }
 
   /**
+   * Append item array with newly created item
+   *
+   * @memberOf Crud
+   */
+  createItem = () => {
+    let item = { title: "New item", info: "Add description here..." };
+    this.props.updateItems([...this.props.items, item]);
+  };
+
+  /**
    * Edits item in the array
    *
    * @memberOf Crud
@@ -110,6 +120,11 @@ class Crud extends React.PureComponent {
         <div className="items-wrapper">
           {this.renderItems(offset, displayCount)}
         </div>
+        {canCreate ? (
+          <button className="btn" onClick={this.createItem}>
+            Add New Item
+          </button>
+        ) : null}
       </div>
     );
   };
