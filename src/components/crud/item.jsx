@@ -13,6 +13,10 @@ class Item extends React.PureComponent {
       mode: "view",
       /** Show the content of the item */
       showContent: false,
+      /** Display header in edit mode */
+      editHeader: false,
+      /** The title of an item */
+      title: props.data.title,
       /** The description of an item */
       info: props.data.info
     };
@@ -28,6 +32,19 @@ class Item extends React.PureComponent {
     mode === "view"
       ? this.setState({ mode: "edit", showContent: true })
       : this.setState({ mode: "view" });
+
+  /**
+   * Updates item content
+   *
+   * @memberOf Item
+   */
+  updateItem = () => {
+    this.props.editItem({
+      title: this.state.title,
+      info: this.state.info
+    });
+    this.setState({ mode: "view", editHeader: false });
+  };
 
   /**
    * Method for rendering controls of an item based on it's mode
@@ -70,11 +87,7 @@ class Item extends React.PureComponent {
         className="btn save"
         onClick={e => {
           e.stopPropagation();
-          this.props.editItem({
-            title: this.props.data.title,
-            info: this.state.info
-          });
-          this.setState({ mode: "view" });
+          this.updateItem();
         }}
       >
         Save
@@ -83,8 +96,7 @@ class Item extends React.PureComponent {
   };
 
   render = () => {
-    const { title } = this.props.data;
-    const { info, mode, showContent } = this.state;
+    const { title, info, mode, showContent, editHeader } = this.state;
     return (
       <div className="item">
         <div
@@ -96,7 +108,27 @@ class Item extends React.PureComponent {
             }))
           }
         >
-          <span className="header-title">{title}</span>
+          {editHeader ? (
+            <input
+              autoFocus={true}
+              className="header-title"
+              defaultValue={title}
+              onClick={e => e.stopPropagation()}
+              onBlur={() => this.updateItem()}
+              onChange={e => this.setState({ title: e.target.value })}
+            />
+          ) : (
+            <span
+              className="header-title"
+              onClick={e => e.stopPropagation()}
+              onDoubleClick={e => {
+                e.stopPropagation();
+                this.setState({ editHeader: true });
+              }}
+            >
+              {title}
+            </span>
+          )}
           <div className="controls">{this.renderControls(mode)}</div>
         </div>
         {mode === "edit" ? (
