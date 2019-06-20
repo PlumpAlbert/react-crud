@@ -4,7 +4,7 @@ import Menu from "../menu";
 import Home from "../home";
 import CRUD from "../crud";
 import orders from "./orders";
-// import Customers from "../customers";
+import customers from "./customers";
 import "./app.sass";
 
 /**
@@ -15,14 +15,14 @@ class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      orders
+      orders,
+      customers
     };
   }
 
-  updateOrders = newOrders => {
-    console.log("Updating orders:", newOrders);
-    this.setState({ orders: newOrders });
-  };
+  updateOrders = newOrders => this.setState({ orders: newOrders });
+
+  updateCustomers = newCustomers => this.setState({ customers: newCustomers });
 
   render = () => {
     return (
@@ -45,7 +45,15 @@ class App extends React.Component {
             />
             <Route
               path="/customers"
-              render={() => <CRUD title="Customers" items={[]} />}
+              render={() => (
+                <CRUD
+                  title="Customers"
+                  items={this.state.customers}
+                  updateItems={this.updateCustomers}
+                  canEdit={false}
+                  canDelete={true}
+                />
+              )}
             />
           </Switch>
         </div>
