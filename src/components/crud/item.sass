@@ -24,7 +24,7 @@
     &.active
       z-index: 9999
       background: $primary-light
-      border-bottom: 2px solid $dark
+      border-bottom: 2px solid $dark        
 
     .header-title
       margin: 0 1rem
@@ -44,14 +44,18 @@
       .btn
         background: transparent
         &:hover
-          background: transparent
-          color: $primary-dark
-          .delete
+          color: inherit
+        .edit
+          &:after
+            content: '\f044'
+          &:hover
+            background: transparent
+            color: $primary-dark
+        .delete
+          &:after
+            content: '\f00d'
+          &:hover
             color: $secondary-light
-        .edit:after
-          content: '\f044'
-        .delete:after
-          content: '\f00d'
         &.save
           padding: 0.5rem 1rem
           border-radius: 0 0.4rem 0.4rem 0
