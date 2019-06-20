@@ -96,7 +96,8 @@ class Item extends React.PureComponent {
   };
 
   render = () => {
-    const { title, info, mode, showContent, editHeader } = this.state;
+    const { id, title, info } = this.props.data;
+    const { mode, showContent, editHeader } = this.state;
     return (
       <div className="item">
         <div
@@ -121,11 +122,13 @@ class Item extends React.PureComponent {
             <span
               className="header-title"
               onDoubleClick={e => {
-                e.stopPropagation();
-                this.setState({ editHeader: true });
+                if (this.props.editItem) {
+                  e.stopPropagation();
+                  this.setState({ editHeader: true });
+                }
               }}
             >
-              {title}
+              {`#${id}. ${title}`}
             </span>
           )}
           <div className="controls">{this.renderControls(mode)}</div>
@@ -148,6 +151,8 @@ class Item extends React.PureComponent {
 
 Item.propTypes = {
   data: PropTypes.shape({
+    /** Index of an item in the array */
+    id: PropTypes.number,
     /** The title of item */
     title: PropTypes.string.isRequired,
     /** The additional information about item */
