@@ -35,11 +35,10 @@ class App extends React.Component {
               path="/orders"
               render={() => (
                 <CRUD
+                  displayCount={this.state.orders.length}
+                  key="orders"
                   title="Orders"
                   items={this.state.orders}
-                  updateItems={this.updateOrders}
-                  canEdit={true}
-                  canDelete={true}
                 />
               )}
             />
@@ -47,10 +46,12 @@ class App extends React.Component {
               path="/customers"
               render={() => (
                 <CRUD
+                  key="customers"
                   title="Customers"
                   items={this.state.customers}
                   updateItems={this.updateCustomers}
-                  canEdit={false}
+                  canCreate={true}
+                  canEdit={true}
                   canDelete={true}
                 />
               )}
