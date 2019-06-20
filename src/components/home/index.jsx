@@ -1,4 +1,5 @@
 import * as React from "react";
+import { Link } from "react-router-dom";
 import "./home.sass";
 
 /**
@@ -25,7 +26,9 @@ const Home = () => (
           className="product-logo"
         />
       </div>
-      <button className="btn">GO SHOPPING!</button>
+      <Link to="/orders" className="btn">
+        GO SHOPPING!
+      </Link>
     </main>
     <footer>
       All rights reserved. Copyrighted by Fusion Soft<sup>&copy;</sup>
