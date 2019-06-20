@@ -12,12 +12,10 @@ class Item extends React.PureComponent {
       /** Mode of current item (view of edit) */
       mode: "view",
       /** Show the content of the item */
-      showContent: false
+      showContent: false,
+      /** The description of an item */
+      info: props.data.info
     };
-  }
-
-  static getDerivedStateFromProps(props, state) {
-    return { ...state, ...props.data };
   }
 
   /**
@@ -73,9 +71,10 @@ class Item extends React.PureComponent {
         onClick={e => {
           e.stopPropagation();
           this.props.editItem({
-            title: this.state.title,
+            title: this.props.data.title,
             info: this.state.info
           });
+          this.setState({ mode: "view" });
         }}
       >
         Save
@@ -84,7 +83,8 @@ class Item extends React.PureComponent {
   };
 
   render = () => {
-    const { title, info, mode, showContent } = this.state;
+    const { title } = this.props.data;
+    const { info, mode, showContent } = this.state;
     return (
       <div className="item">
         <div
@@ -103,7 +103,7 @@ class Item extends React.PureComponent {
           <textarea
             className="item-content active"
             onChange={e => this.setState({ info: e.target.value })}
-            value={info}
+            defaultValue={info}
           />
         ) : (
           <p className={`item-content ${showContent ? "active" : ""}`}>

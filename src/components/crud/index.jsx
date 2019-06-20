@@ -18,7 +18,38 @@ class Crud extends React.PureComponent {
     };
   }
 
-  editItem = (prevItem, newItem) => {};
+  /**
+   * Edits item in the array
+   *
+   * @memberOf Crud
+   * @param prevItem
+   * @param newItem
+   */
+  editItem = (prevItem, newItem) => {
+    const { items } = this.props;
+    // Find index of item to update
+    let index = items.findIndex(elem => elem === prevItem);
+    if (index < 0)
+      return console.error("removeItem: didn't found item in the array");
+    let newItems;
+    switch (index) {
+      case 0: // Update first item
+        newItems = [newItem, ...items.slice(1)];
+        break;
+      case items.length - 1: // Update last item
+        newItems = [...items.slice(0, items.length - 1), newItem];
+        break;
+      default:
+        // Update item at specific position
+        newItems = [
+          ...items.slice(0, index),
+          newItem,
+          ...items.slice(index + 1)
+        ];
+        break;
+    }
+    this.props.updateItems(newItems);
+  };
 
   /**
    * Removes item from the array
