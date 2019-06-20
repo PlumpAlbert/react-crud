@@ -100,10 +100,10 @@ class Crud extends React.PureComponent {
     console.log(`Rendering items (${offset},${offset + count})`);
     const { items, canEdit, canDelete } = this.props;
     return items
-      .slice(offset, count)
+      .slice(offset, offset + count)
       .map((item, i) => (
         <Item
-          data={item}
+          data={{ ...item, id: i + offset + 1 }}
           editItem={canEdit ? newItem => this.editItem(item, newItem) : null}
           removeItem={canDelete ? () => this.removeItem(item) : null}
           key={`crud-item_${i}`}
@@ -112,13 +112,37 @@ class Crud extends React.PureComponent {
   };
 
   render = () => {
-    const { title, canCreate, canDelete, canModify, displayCount } = this.props;
+    const { title, canCreate, displayCount, items } = this.props;
     const { offset } = this.state;
     return (
       <div className="crud">
         <h3 className="page-title">{title}</h3>
+        <div className="chevron">
+          {offset > 0 ? (
+            <i
+              className="fa up"
+              onClick={() =>
+                this.setState({
+                  offset: offset - displayCount > 0 ? offset - displayCount : 0
+                })
+              }
+            />
+          ) : null}
+        </div>
         <div className="items-wrapper">
           {this.renderItems(offset, displayCount)}
+        </div>
+        <div className="chevron">
+          {offset + displayCount < items.length ? (
+            <i
+              className="fa down"
+              onClick={() =>
+                this.setState(state => ({
+                  offset: state.offset + displayCount
+                }))
+              }
+            />
+          ) : null}
         </div>
         {canCreate ? (
           <button className="btn" onClick={this.createItem}>
